@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
       const roles = this.keycloakService.getUserRoles(); // Ottieni i ruoli dell'utente
 
       // Verifica il ruolo e crea i menu item corrispondenti
+      //TODO: crea componenti e proteggi le rotte
       if (roles.includes('adminRole')) {
         this.items = [
           {
