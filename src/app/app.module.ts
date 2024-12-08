@@ -1,18 +1,48 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { environment } from './enviroments/enviroment';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { HomeComponent } from './components/home/home.component';
+import { SharedSidebarComponent } from './components/shared-sidebar/shared-sidebar.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+export function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: {
+        url: environment.keycloak.url,
+        realm: environment.keycloak.realm,
+        clientId: environment.keycloak.clientId,
+      },
+      initOptions: {
+        onLoad: 'login-required', // O 'check-sso'
+        checkLoginIframe: false,  // Disabilita il controllo dell'iframe
+      },
+    });
+}
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    SharedSidebarComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    KeycloakAngularModule,
+
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
