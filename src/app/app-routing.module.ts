@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 @Injectable({
-  providedIn: 'root', // Puoi usare 'root' o lasciare il provider esplicito nel modulo
+  providedIn: 'root', 
 })
 //TODO: creare due guard: AdminAuthGuard e UserAuthGuard e le metti nel routing
 export class AppAuthGuard extends KeycloakAuthGuard {
