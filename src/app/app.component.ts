@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.inizializzareMenuItem();
+    this.reindirizzareInBaseAlRuolo();
   }
 
   // Funzione per inizializzare il menu in base al ruolo
@@ -23,9 +24,8 @@ export class AppComponent implements OnInit {
     // Verifica se l'utente è autenticato
     if (this.keycloakService.isLoggedIn()) {
       const roles = this.keycloakService.getUserRoles(); // Ottieni i ruoli dell'utente
-
+      
       // Verifica il ruolo e crea i menu item corrispondenti
-      //TODO: crea componenti e proteggi le rotte
       if (roles.includes('adminRole')) {
         this.items = [
           {
@@ -61,6 +61,19 @@ export class AppComponent implements OnInit {
           command: () => this.keycloakService.login() // Link per il login
         }
       ];
+    }
+  }
+
+  // Funzione per reindirizzare in base al ruolo
+  reindirizzareInBaseAlRuolo() {
+    if (this.keycloakService.isLoggedIn()) {
+      const roles = this.keycloakService.getUserRoles(); // Ottieni i ruoli dell'utente
+      
+      if (roles.includes('adminRole')) {
+        this.router.navigate(['/home-admin']); // Reindirizza a Home Admin
+      } else if (roles.includes('userRole')) {
+        this.router.navigate(['/home-user']); // Reindirizza a Home User
+      }
     }
   }
 }

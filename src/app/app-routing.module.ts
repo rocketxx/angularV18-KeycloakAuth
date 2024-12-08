@@ -4,11 +4,12 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { adminRoleAuthGuard } from './guard/adminRoleAuthGuard';
 import { userRoleAuthGuard } from './guard/userRoleAuthGuard';
 import { HomeAdminRoleComponent } from './components/admin/home-admin-role/home-admin-role.component';
+import { HomeUserRoleComponent } from './components/user/home-user-role/home-user-role.component';
 
 
 const routes: Routes = [
   { path: 'home-admin', component: HomeAdminRoleComponent , canActivate: [adminRoleAuthGuard]},
-  { path: 'home-user', component: HomeAdminRoleComponent , canActivate: [userRoleAuthGuard]},
+  { path: 'home-user', component: HomeUserRoleComponent , canActivate: [userRoleAuthGuard]},
   { path: 'notfound', component: PageNotFoundComponent},
 ];
 
