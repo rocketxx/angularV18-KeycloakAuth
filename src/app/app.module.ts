@@ -8,6 +8,9 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { HomeComponent } from './components/home/home.component';
 import { SharedSidebarComponent } from './components/shared-sidebar/shared-sidebar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HomeAdminRoleComponent } from './components/admin/home-admin-role/home-admin-role.component';
+import { HomeUserRoleComponent } from './components/user/home-user-role/home-user-role.component';
+import { MenubarModule } from 'primeng/menubar';
 export function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
@@ -27,13 +30,15 @@ export function initializeKeycloak(keycloak: KeycloakService) {
     AppComponent,
     HomeComponent,
     SharedSidebarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HomeAdminRoleComponent,
+    HomeUserRoleComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     KeycloakAngularModule,
-
+    MenubarModule
   ],
   providers: [
     {
